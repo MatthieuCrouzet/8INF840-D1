@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // Devoir1_CROUZET_BRANGER_8INF840_A2016.cpp : Defines the entry point for the console application.
 //
 
@@ -7,9 +6,8 @@
 #include "Carte.h"
 #include "Joueur.h"
 #include <cstdlib>
-=======
 #include <iostream>
->>>>>>> 9a30287aa97899bf901c7170552fd31adf893268
+
 
 int entier_alea(int min, int max)
 {
