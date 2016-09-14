@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Devoir1_CROUZET_BRANGER_8INF840_A2016/ipch/DEVOIR1_CROUZET_BRANGER_8INF840_A2016-33bc9483/DEVOIR1_CROUZET_BRANGER_8INF840_A2016-7d2fb06a.ipch
+/Devoir1_CROUZET_BRANGER_8INF840_A2016/Devoir1_CROUZET_BRANGER_8INF840_A2016.VC.VC.opendb
+/Devoir1_CROUZET_BRANGER_8INF840_A2016/Devoir1_CROUZET_BRANGER_8INF840_A2016.VC.db
+/Devoir1_CROUZET_BRANGER_8INF840_A2016/**/*.suo
