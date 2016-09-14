@@ -27,7 +27,7 @@ private: //Modele d' implantation
 	static const int MAX_PILE = 100;
 };
 
-#endif
+
 
 template<typename U>
 inline std::ostream & operator<<(std::ostream s, const Pile<U>& p)
@@ -39,3 +39,5 @@ inline std::ostream & operator<<(std::ostream s, const Pile<U>& p)
 	s << sommet[0] << " ]" << endl;
 	return s;
 }
+
+#endif
