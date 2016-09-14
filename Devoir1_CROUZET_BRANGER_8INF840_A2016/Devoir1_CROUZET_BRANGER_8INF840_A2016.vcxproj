@@ -157,7 +157,7 @@
     <ClCompile Include="Carte.cpp" />
     <ClCompile Include="Couleur.cpp" />
     <ClCompile Include="Joueur.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="bataille.cpp" />
     <ClCompile Include="Pile.cpp" />
     <ClCompile Include="Valeur.cpp" />
   </ItemGroup>
