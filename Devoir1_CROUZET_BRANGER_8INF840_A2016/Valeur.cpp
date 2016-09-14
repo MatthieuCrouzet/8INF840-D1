@@ -1,11 +1,14 @@
+#include <cstdlib>
 #include "Valeur.h"
 
 
-Valeur::Valeur()
+Valeur::Valeur(int i)
 {
+	value = i;
 }
 
-
-Valeur::~Valeur()
+int Valeur::getValeur() const
 {
+	return value;
 }
+

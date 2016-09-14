@@ -4,8 +4,10 @@
 class Valeur
 {
 public:
-	Valeur();
-	~Valeur();
+	Valeur(int i);
+	int getValeur() const;
+private:
+	int value;
 };
 
 #endif

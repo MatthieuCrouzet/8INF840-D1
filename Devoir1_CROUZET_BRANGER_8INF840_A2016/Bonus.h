@@ -3,7 +3,9 @@
 class Bonus
 {
 public:
-	Bonus();
-	~Bonus();
+	Bonus(int i);
+	int getBonus() const;
+private:
+	int value;
 };
 #endif
