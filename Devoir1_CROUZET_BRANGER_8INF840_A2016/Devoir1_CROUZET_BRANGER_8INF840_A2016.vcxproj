@@ -155,7 +155,6 @@
   <ItemGroup>
     <ClCompile Include="Bonus.cpp" />
     <ClCompile Include="Carte.cpp" />
-    <ClCompile Include="Couleur.cpp" />
     <ClCompile Include="Joueur.cpp" />
     <ClCompile Include="bataille.cpp" />
     <ClCompile Include="Pile.cpp" />
