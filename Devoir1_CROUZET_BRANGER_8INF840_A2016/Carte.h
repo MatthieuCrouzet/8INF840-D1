@@ -11,9 +11,9 @@ class Carte
 {
 public:
 	Carte();
-	int getBonus();
-	int getValeur();
-	Couleur getCouleur();
+	int getBonus() const;
+	int getValeur() const;
+	Couleur getCouleur() const;
 
 private:
 	Bonus* bonus;
