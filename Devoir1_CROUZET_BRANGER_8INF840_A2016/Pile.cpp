@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Pile.h"
 
 
@@ -82,4 +83,16 @@ const Pile<T>& Pile<T>::operator=(const Pile<T> p)
 		tab[i] = p.tab[i];
 	}
 	return (*this);
+}
+
+
+template<typename U>
+inline std::ostream & operator<<(std::ostream s, const Pile<U>& p)
+{
+	s << "******SOMMET******";
+	for (int i = sommet; i > -1; i--) {
+		s << p.tab[i];
+	}
+	s << "*******BASE*******" << endl;
+	return s;
 }

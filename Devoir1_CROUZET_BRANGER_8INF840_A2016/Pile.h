@@ -29,15 +29,6 @@ private: //Modele d' implantation
 
 
 
-template<typename U>
-inline std::ostream & operator<<(std::ostream s, const Pile<U>& p)
-{
-	s << "[ ";
-	for (int i = sommet; i > 0 ; i--) {
-		s << p.tab[i] << ", ";
-	}
-	s << sommet[0] << " ]" << endl;
-	return s;
-}
+
 
 #endif

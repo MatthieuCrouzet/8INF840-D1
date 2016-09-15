@@ -1,5 +1,8 @@
 #include <cstdlib>
+#include <iostream>
 #include "Carte.h"
+
+using namespace std;
 
 int entier_alea(int min, int max);
 
@@ -30,3 +33,26 @@ int entier_alea(int min, int max)
 {
 	return rand() % (max - min + 1) + min;
 }
+
+
+ostream& operator<<(ostream &flux, Carte const& c)
+{
+	flux << "----------------" << endl;	
+	for (int i = 0; i < 3; i++) {
+		flux << "|              |" << endl;
+	}
+	flux << "| " << c.getValeur() << " (" << c.getBonus() << "-";
+	if (c.getCouleur() == Couleur::NOIR) {
+		flux << "NOIR) ";
+	}
+	else {
+		flux << "ROUGE)";
+	}
+	flux << " |" << endl;
+	for (int i = 0; i < 3; i++) {
+		flux << "|              |" << endl;
+	}
+	flux << "----------------" << endl;
+	return flux;
+}
+
