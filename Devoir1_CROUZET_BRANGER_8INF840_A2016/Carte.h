@@ -16,8 +16,8 @@ public:
 	Couleur getCouleur() const;
 
 private:
-	Bonus* bonus;
-	Valeur* valeur;
+	Bonus bonus;
+	Valeur valeur;
 	Couleur couleur;
 };
 
