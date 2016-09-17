@@ -9,10 +9,6 @@
 
 using namespace std;
 
-int entier_alea(int min, int max)
-{
-	return rand() % (max - min + 1) + min;
-}
 
 void remplir_pile(Pile<Carte> & p)
 {
@@ -31,56 +27,56 @@ void distribuer_joueurs(int nb_cartes, Pile<Carte> p,Joueur j1,Joueur j2)
 		Carte c = p.depiler();
 		if(i%2==0)
 		{
-			j1.pile.empiler(c);
+			j1.getEnMain().empiler(c);
 		}
 		else
 		{
-			j2.pile.empiler(c);
+			j2.getEnMain().empiler(c);
 		}
 	}
 }
 
 void jouer_un_tour(Joueur j1, Joueur j2)
 {
-	Carte c1 = j1.pile.depiler();
-	Carte c2 = j2.pile.depiler();
+	Carte c1 = j1.getEnMain().depiler();
+	Carte c2 = j2.getEnMain().depiler();
 
 	if (c1.getValeur()<c2.getValeur())
 	{
-		j2.pileFinale.empiler(c1);
-		j2.pileFinale.empiler(c2);
+		j2.getEnMain().empiler(c1);
+		j2.getEnMain().empiler(c2);
 	}
 	else if (c1.getValeur()>c2.getValeur())
 	{
-		j1.pileFinale.empiler(c1);
-		j1.pileFinale.empiler(c2);
+		j1.getEnMain().empiler(c1);
+		j1.getEnMain().empiler(c2);
 	}
 	else
 	{
 		if (c1.getCouleur() == Couleur::ROUGE && c2.getCouleur() == Couleur::NOIR)
 		{
-			j1.pileFinale.empiler(c1);
-			j1.pileFinale.empiler(c2);
+			j1.getEnMain().empiler(c1);
+			j1.getEnMain().empiler(c2);
 		}
 		else if (c2.getCouleur() == Couleur::ROUGE && c1.getCouleur() == Couleur::ROUGE)
 		{
-			j2.pileFinale.empiler(c1);
-			j2.pileFinale.empiler(c2);
+			j2.getEnMain().empiler(c1);
+			j2.getEnMain().empiler(c2);
 		}
 		else
 		{
-			j1.pileFinale.empiler(c1);
-			j2.pileFinale.empiler(c2);
+			j1.getEnMain().empiler(c1);
+			j2.getEnMain().empiler(c2);
 		}
 	}
 }
 
-float compter_points (Joueur j)
+double compter_points (Joueur j)
 {
-	float compte = 0.;
-	while(!j.pileFinale.estVide())
+	double compte = 0.;
+	while(!j.getEnMain().estVide())
 	{
-		Carte c = j.pileFinale.depiler();
+		Carte c = j.getEnMain().depiler();
 		if(c.getCouleur() == Couleur::ROUGE)
 		{
 			compte += 1.5*c.getBonus() * c.getValeur();
@@ -95,7 +91,7 @@ float compter_points (Joueur j)
 
 void afficher_score(Joueur j1, Joueur j2)
 {
-	float score1, score2;
+	double score1, score2;
 	score1 = compter_points(j1);
 	score2 = compter_points(j2);
 	cout << "Résultats de la partie : " << endl;
@@ -119,17 +115,17 @@ int main(void)
 {
 
 	//Création de la pile de 100 éléments
-	Pile<Carte> pioche();
+	Pile<Carte> pioche = Pile<Carte>();
 	remplir_pile(pioche);
 	//Création des joueurs
-	Joueur j1();
-	Joueur j2();
+	Joueur j1 = Joueur();
+	Joueur j2 = Joueur();
 
 	//Distribution des cartes tour à tour
 	distribuer_joueurs(50, pioche, j1, j2);
 
 	//Boucle de jeu
-	while(!j1.pile.estVide() && !j1.pile.estVide())
+	while(!j1.getEnMain().estVide() && !j1.getEnMain().estVide())
 	{
 		jouer_un_tour(j1,j2);
 	}
@@ -139,6 +135,3 @@ int main(void)
 
     return 0;
 }
-
-
-

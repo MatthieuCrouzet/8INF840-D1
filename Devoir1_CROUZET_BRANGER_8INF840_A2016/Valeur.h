@@ -5,6 +5,7 @@ class Valeur
 {
 public:
 	Valeur(int i);
+	Valeur();
 	int getValeur() const;
 private:
 	int value;

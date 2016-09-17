@@ -21,7 +21,7 @@ Pile<T>::Pile(const Pile& p)
 }
 
 template<typename T>
-Pile::~Pile()
+Pile<T>::~Pile()
 {
 	delete [] tab;
 }
@@ -63,7 +63,7 @@ int Pile<T>::taille() const
 }
 
 template<typename T>
-const T & Pile<T>::sommet() const
+const T & Pile<T>::getSommet() const
 {
 	if (!estVide()) {
 		return tab[sommet];

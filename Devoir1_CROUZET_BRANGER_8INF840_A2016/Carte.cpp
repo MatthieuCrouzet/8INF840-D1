@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <iostream>
 #include "Carte.h"
+#include "Bonus.h"
 
 using namespace std;
 
@@ -8,9 +9,9 @@ int entier_alea(int min, int max);
 
 Carte::Carte()
 {
-	bonus =  Bonus(entier_alea(1,4));
-	valeur = Valeur(entier_alea(1,10));
-	couleur = static_cast<Couleur>(entier_alea(0,1));
+	bonus = Bonus(entier_alea(1, 4));
+	valeur = Valeur(entier_alea(1, 10));
+	couleur = static_cast<Couleur>(entier_alea(0, 1));
 }
 
 int Carte::getBonus() const
