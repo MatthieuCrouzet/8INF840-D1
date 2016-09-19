@@ -48,21 +48,26 @@ void distribuer_joueurs(int nb_cartes, Pile<Carte> p, Joueur* j1, Joueur* j2)
 
 void jouer_un_tour(Joueur* j1, Joueur* j2)
 {
-
 	try
 	{
 		Carte c1 = j1->getEnMain()->depiler();
 		Carte c2 = j2->getEnMain()->depiler();
 
+		
+		cout << "Carte du joueur 1 :" << endl << c1 << endl;
+		cout << "Carte du joueur 2 :" << endl << c2 << endl;
+
 		if (c1.getValeur() < c2.getValeur())
 		{
 			j2->getGain()->empiler(c1);
 			j2->getGain()->empiler(c2);
+			cout << "Le joueur 2 gagne !" << endl;
 		}
 		else if (c1.getValeur() > c2.getValeur())
 		{
 			j1->getGain()->empiler(c1);
 			j1->getGain()->empiler(c2);
+			cout << "Le joueur 1 gagne !" << endl;
 		}
 		else
 		{
@@ -70,18 +75,22 @@ void jouer_un_tour(Joueur* j1, Joueur* j2)
 			{
 				j1->getGain()->empiler(c1);
 				j1->getGain()->empiler(c2);
+				cout << "Le joueur 1 gagne !" << endl;
 			}
 			else if (c2.getCouleur() == Couleur::ROUGE && c1.getCouleur() == Couleur::NOIR)
 			{
 				j2->getGain()->empiler(c1);
 				j2->getGain()->empiler(c2);
+				cout << "Le joueur 2 gagne !" << endl;
 			}
 			else
 			{
 				j1->getGain()->empiler(c1);
 				j2->getGain()->empiler(c2);
+				cout << "Egalite !" << endl;
 			}
 		}
+		system("pause");
 	}
 	catch (const std::exception& e)
 	{
@@ -133,29 +142,62 @@ void afficher_score(Joueur j1, Joueur j2)
 int main(void)
 {
 	srand(time(NULL));
-	//Création de la pile de 100 éléments
-	Pile<Carte> pioche = Pile<Carte>();
-	remplir_pile(pioche);
-
-	//Création des joueurs
-	Joueur* j1 = new Joueur();
-	Joueur* j2 = new Joueur();	
-
-	//Distribution des cartes tour à tour
-	distribuer_joueurs(50, pioche, j1, j2);
-
-	int i(0);
-	//Boucle de jeu
-	while(!j1->getEnMain()->estVide() && !j2->getEnMain()->estVide())
+	bool continuer=true;
+	
+	char recommencer;
+	while (continuer)
 	{
-		jouer_un_tour(j1,j2);
-		i++;
-		cout << i << endl;
-	}
+		bool entreeValide = false;
+		int nbCartes = 0;
+		while (nbCartes <= 0 || nbCartes>50) {
+			cout << "Choisissez le nombre de carte par joueurs (entre 1 et 50)" << endl;
+			cin >> nbCartes;
+		}
+		//Création de la pile de 100 éléments
+		Pile<Carte> pioche = Pile<Carte>();
+		remplir_pile(pioche);
 
-	//Affichage du score
-	afficher_score(*j1, *j2);
-	system("pause");
+		//Création des joueurs
+		Joueur* j1 = new Joueur();
+		Joueur* j2 = new Joueur();
+
+
+
+		//Distribution des cartes tour à tour
+		distribuer_joueurs(nbCartes, pioche, j1, j2);
+
+		//Boucle de jeu
+		while (!j1->getEnMain()->estVide() && !j2->getEnMain()->estVide())
+		{
+			jouer_un_tour(j1, j2);
+		}
+
+		//Affichage du score
+		afficher_score(*j1, *j2);
+
+		while (!entreeValide) {
+			cout << "Voulez-vous recommencer ? (O/N)" << endl;
+
+			cin >> recommencer;
+			switch (recommencer)
+			{
+			case 'O':
+			case 'o':
+				entreeValide = true;
+				break;
+			case 'N':
+			case 'n':
+				continuer = false;
+				entreeValide = true;
+				break;
+			default:
+				cout << "Entrez une valeur valide ? (O/N)" << endl;
+				entreeValide = false;
+				break;
+			}
+		}
+		
+	} 
 
     return 0;
 }

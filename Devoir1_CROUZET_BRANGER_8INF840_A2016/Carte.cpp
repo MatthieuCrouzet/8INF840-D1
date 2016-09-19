@@ -42,7 +42,7 @@ ostream& operator<<(ostream &flux, Carte const& c)
 	for (int i = 0; i < 3; i++) {
 		flux << "|              |" << endl;
 	}
-	flux << "| " << c.getValeur() << " (" << c.getBonus() << "-";
+	flux << "| " << c.getValeur() << "  (" << c.getBonus() << "-";
 	if (c.getCouleur() == Couleur::NOIR) {
 		flux << "NOIR) ";
 	}
