@@ -53,7 +53,7 @@ Pile<T>::Pile(const Pile& p)
 template<typename T>
 Pile<T>::~Pile()
 {
-	delete[] tab;
+	//delete[] tab;
 }
 
 template<typename T>
@@ -104,12 +104,12 @@ const T & Pile<T>::getSommet() const
 template<typename T>
 const Pile<T>& Pile<T>::operator=(const Pile<T> p)
 {
-	p.~Pile();
 	sommet = p.sommet;
 	tailleMax = p.tailleMax;
 	for (int i = 0; i <= tailleMax; i++) {
 		tab[i] = p.tab[i];
 	}
+
 	return (*this);
 }
 

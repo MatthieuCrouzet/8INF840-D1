@@ -17,58 +17,76 @@ void remplir_pile(Pile<Carte> & p)
 		Carte c = Carte();
 		p.empiler(c);
 	}
-
 }
 
-void distribuer_joueurs(int nb_cartes, Pile<Carte> p,Joueur j1,Joueur j2)
+void distribuer_joueurs(int nb_cartes, Pile<Carte> p, Joueur j1, Joueur j2)
 {
 	for (int i = 0; i < nb_cartes; i++)
 	{
-		Carte c = p.depiler();
-		if(i%2==0)
+		try
 		{
-			j1.getEnMain().empiler(c);
+			Carte c = p.depiler();
+			if (i % 2 == 0)
+			{
+				j1.getEnMain().empiler(c);
+			}
+			else
+			{
+				j2.getEnMain().empiler(c);
+			}
 		}
-		else
+		catch (const std::exception& e)
 		{
-			j2.getEnMain().empiler(c);
+			cout << e.what() << endl;
+			break;
 		}
+
 	}
 }
 
+
 void jouer_un_tour(Joueur j1, Joueur j2)
 {
-	Carte c1 = j1.getEnMain().depiler();
-	Carte c2 = j2.getEnMain().depiler();
 
-	if (c1.getValeur()<c2.getValeur())
+	try
 	{
-		j2.getEnMain().empiler(c1);
-		j2.getEnMain().empiler(c2);
-	}
-	else if (c1.getValeur()>c2.getValeur())
-	{
-		j1.getEnMain().empiler(c1);
-		j1.getEnMain().empiler(c2);
-	}
-	else
-	{
-		if (c1.getCouleur() == Couleur::ROUGE && c2.getCouleur() == Couleur::NOIR)
-		{
-			j1.getEnMain().empiler(c1);
-			j1.getEnMain().empiler(c2);
-		}
-		else if (c2.getCouleur() == Couleur::ROUGE && c1.getCouleur() == Couleur::ROUGE)
+		Carte c1 = j1.getEnMain().depiler();
+		Carte c2 = j2.getEnMain().depiler();
+
+		if (c1.getValeur() < c2.getValeur())
 		{
 			j2.getEnMain().empiler(c1);
 			j2.getEnMain().empiler(c2);
 		}
-		else
+		else if (c1.getValeur() > c2.getValeur())
 		{
 			j1.getEnMain().empiler(c1);
-			j2.getEnMain().empiler(c2);
+			j1.getEnMain().empiler(c2);
+		}
+		else
+		{
+			if (c1.getCouleur() == Couleur::ROUGE && c2.getCouleur() == Couleur::NOIR)
+			{
+				j1.getEnMain().empiler(c1);
+				j1.getEnMain().empiler(c2);
+			}
+			else if (c2.getCouleur() == Couleur::ROUGE && c1.getCouleur() == Couleur::ROUGE)
+			{
+				j2.getEnMain().empiler(c1);
+				j2.getEnMain().empiler(c2);
+			}
+			else
+			{
+				j1.getEnMain().empiler(c1);
+				j2.getEnMain().empiler(c2);
+			}
 		}
 	}
+	catch (const std::exception& e)
+	{
+		cout << e.what() << endl;
+	}
+
 }
 
 double compter_points (Joueur j)
@@ -117,6 +135,7 @@ int main(void)
 	//Création de la pile de 100 éléments
 	Pile<Carte> pioche = Pile<Carte>();
 	remplir_pile(pioche);
+
 	//Création des joueurs
 	Joueur j1 = Joueur();
 	Joueur j2 = Joueur();	
