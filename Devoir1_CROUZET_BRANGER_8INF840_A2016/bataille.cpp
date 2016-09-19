@@ -119,7 +119,7 @@ int main(void)
 	remplir_pile(pioche);
 	//Création des joueurs
 	Joueur j1 = Joueur();
-	Joueur j2 = Joueur();
+	Joueur j2 = Joueur();	
 
 	//Distribution des cartes tour à tour
 	distribuer_joueurs(50, pioche, j1, j2);
