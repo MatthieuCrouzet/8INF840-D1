@@ -97,8 +97,10 @@ const T & Pile<T>::getSommet() const
 	if (!estVide()) {
 		return tab[sommet];
 	}
-	cout << "Erreur pile vide !" << endl;
-	return NULL;
+	else {
+		throw logic_error("Erreur pile vide !");
+	}
+	
 }
 
 template<typename T>

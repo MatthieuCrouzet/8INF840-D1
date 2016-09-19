@@ -5,8 +5,8 @@
 
 Joueur::Joueur()
 {
-	gain = Pile<Carte>();
-	enMain = Pile<Carte>();
+	gain = new Pile<Carte>();
+	enMain = new Pile<Carte>();
 }
 
 
@@ -15,12 +15,12 @@ Joueur::~Joueur()
 
 }
 
-Pile<Carte> Joueur::getEnMain() const
+Pile<Carte>* Joueur::getEnMain() const
 {
 	return enMain;
 }
 
-Pile<Carte> Joueur::getGain() const
+Pile<Carte>* Joueur::getGain() const
 {
 	return gain;
 }

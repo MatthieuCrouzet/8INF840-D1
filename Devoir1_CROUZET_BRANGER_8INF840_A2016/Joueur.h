@@ -6,11 +6,11 @@
 class Joueur
 {
 private:
-	Pile<Carte> enMain;
-	Pile<Carte> gain;
+	Pile<Carte>* enMain;
+	Pile<Carte>* gain;
 public:
-	Pile<Carte> getEnMain() const;
-	Pile<Carte> getGain() const;
+	Pile<Carte>* getEnMain() const;
+	Pile<Carte>* getGain() const;
 
 	Joueur();
 	~Joueur();
