@@ -82,7 +82,7 @@ T Pile<T>::depiler()
 template<typename T>
 bool Pile<T>::estVide() const
 {
-	return sommet > -1;
+	return sommet == -1;
 }
 
 template<typename T>

@@ -52,6 +52,7 @@ void jouer_un_tour(Joueur j1, Joueur j2)
 	{
 		Carte c1 = j1.getEnMain().depiler();
 		Carte c2 = j2.getEnMain().depiler();
+		cout << c1 << c2 << endl;
 
 		if (c1.getValeur() < c2.getValeur())
 		{
@@ -143,14 +144,16 @@ int main(void)
 	//Distribution des cartes tour à tour
 	distribuer_joueurs(50, pioche, j1, j2);
 
+
 	//Boucle de jeu
-	while(!j1.getEnMain().estVide() && !j1.getEnMain().estVide())
+	while(!j1.getEnMain().estVide() && !j2.getEnMain().estVide())
 	{
 		jouer_un_tour(j1,j2);
 	}
 
 	//Affichage du score
 	afficher_score(j1, j2);
+	system("pause");
 
     return 0;
 }
