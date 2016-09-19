@@ -5,6 +5,7 @@
 #include "Pile.h"
 #include "Carte.h"
 #include "Joueur.h"
+#include <ctime>
 
 
 using namespace std;
@@ -21,7 +22,7 @@ void remplir_pile(Pile<Carte> & p)
 
 void distribuer_joueurs(int nb_cartes, Pile<Carte> p, Joueur* j1, Joueur* j2)
 {
-	for (int i = 0; i < nb_cartes; i++)
+	for (int i = 0; i < nb_cartes*2; i++)
 	{
 		try
 		{
@@ -70,7 +71,7 @@ void jouer_un_tour(Joueur* j1, Joueur* j2)
 				j1->getGain()->empiler(c1);
 				j1->getGain()->empiler(c2);
 			}
-			else if (c2.getCouleur() == Couleur::ROUGE && c1.getCouleur() == Couleur::ROUGE)
+			else if (c2.getCouleur() == Couleur::ROUGE && c1.getCouleur() == Couleur::NOIR)
 			{
 				j2->getGain()->empiler(c1);
 				j2->getGain()->empiler(c2);
@@ -92,9 +93,9 @@ void jouer_un_tour(Joueur* j1, Joueur* j2)
 double compter_points (Joueur j)
 {
 	double compte = 0.;
-	while(!j.getEnMain()->estVide())
+	while(!j.getGain()->estVide())
 	{
-		Carte c = j.getEnMain()->depiler();
+		Carte c = j.getGain()->depiler();
 		if(c.getCouleur() == Couleur::ROUGE)
 		{
 			compte += 1.5*c.getBonus() * c.getValeur();
@@ -114,12 +115,12 @@ void afficher_score(Joueur j1, Joueur j2)
 	score2 = compter_points(j2);
 	cout << "Resultats de la partie : " << endl;
 	cout << "Joueur 1 : " << score1 << endl;
-	cout << "Joueur 2 : " << score1 << endl;
-	if(score1<score2)
+	cout << "Joueur 2 : " << score2 << endl;
+	if(score1>score2)
 	{
 		cout << "Le joueur 1 a gagne " << endl;
 	}
-	else if (score1>score2)
+	else if (score1<score2)
 	{
 		cout << "Le joueur 2 a gagne " << endl;
 	}
@@ -131,7 +132,7 @@ void afficher_score(Joueur j1, Joueur j2)
 
 int main(void)
 {
-
+	srand(time(NULL));
 	//Création de la pile de 100 éléments
 	Pile<Carte> pioche = Pile<Carte>();
 	remplir_pile(pioche);

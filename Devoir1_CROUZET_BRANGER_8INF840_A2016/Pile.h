@@ -53,7 +53,7 @@ Pile<T>::Pile(const Pile& p)
 template<typename T>
 Pile<T>::~Pile()
 {
-	//delete[] tab;
+	delete[] tab;
 }
 
 template<typename T>
