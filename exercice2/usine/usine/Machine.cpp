@@ -16,11 +16,11 @@ Machine::Machine(Piece p):
 }
 
 Machine::Machine(Piece p, File<Piece>* axes, File<Piece>* jupes, File<Piece>* tetes) :
-	arret(false),
-	typePieceTraitee(p),
 	fileAxes(axes),
 	fileJupes(jupes),
-	fileTetes(tetes)
+	fileTetes(tetes),
+	arret(false),
+	typePieceTraitee(p)
 {
 }
 
