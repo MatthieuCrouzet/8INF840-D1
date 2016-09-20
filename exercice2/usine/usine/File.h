@@ -37,8 +37,6 @@ File<T>::File(int max = 100) :
 
 template<typename T>
 File<T>::File(const File & f) :
-	debut(f.vec.begin()),
-	fin(f.vec.end()),
 	taille_max(f.taille_max)
 {
 	for (int i = f.vec.begin(); i < f.vec.end(); i++) {
@@ -49,8 +47,6 @@ File<T>::File(const File & f) :
 template<typename T>
 const File<T>& File<T>::operator=(const File<T>& f)
 {
-	debut = f.vec.begin();
-	fin = f.vec.end();
 	taille_max = f.taille_max;
 	for (int i = f.vec.begin(); i < f.vec.end(); i++) {
 		vec[i] = f.vec[i];

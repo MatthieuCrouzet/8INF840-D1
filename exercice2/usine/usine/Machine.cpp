@@ -22,6 +22,7 @@ Machine::Machine(Piece p, File<Piece>* axes, File<Piece>* jupes, File<Piece>* te
 	arret(false),
 	typePieceTraitee(p)
 {
+	fileObjetsTraites = new File<Piece>();
 }
 
 
@@ -43,24 +44,26 @@ void Machine::traiter()
 	if (typePieceTraitee == Piece::PISTON) {
 		std::cout << fileObjetsTraites->taille() << " pistons créés ! " << endl;
 	}
+	
 	while ((typePieceTraitee==Piece::PISTON && fileObjetsTraites->estPleine()) || typePieceTraitee!=Piece::PISTON || !arret) {
 		if (entier_alea(1, 4) > 1) {
+			m.lock();
 			switch (typePieceTraitee) {
 			case Piece::AXE:
 				if (!fileAxes->estVide()) {
-					Sleep(2500);
+					Sleep(25);
 					fileObjetsTraites->enfiler(fileAxes->defiler());
 				}
 				break;
 			case Piece::JUPE:
 				if (!fileJupes->estVide()) {
-					Sleep(3000);
+					Sleep(30);
 					fileObjetsTraites->enfiler(fileJupes->defiler());
 				}
 				break;
 			case Piece::PISTON:
 				if (!fileAxes->estVide() && !fileJupes->estVide() && !fileTetes->estVide()) {
-					Sleep(1000);
+					Sleep(10);
 					fileObjetsTraites->enfiler(fileAxes->defiler());
 					fileObjetsTraites->enfiler(fileJupes->defiler());
 					fileObjetsTraites->enfiler(fileTetes->defiler());
@@ -69,11 +72,12 @@ void Machine::traiter()
 				break;
 			case Piece::TETE:
 				if (!fileTetes->estVide()) {
-					Sleep(2000);
+					Sleep(20);
 					fileObjetsTraites->enfiler(fileTetes->defiler());
 				}
 				break;
 			}
+			m.unlock();
 		}
 		else {
 			int tmp = entier_alea(5,10);
@@ -91,7 +95,7 @@ void Machine::traiter()
 				std::cout << "Machine pour les TETES en panne pendant " << tmp << " minutes ! " << endl;
 				break;
 			}
-			Sleep(tmp*1000);			
+			Sleep(tmp*10);			
 		}
 	}
 	arret = false;

@@ -4,6 +4,9 @@
 #include "File.h"
 #include "Piece.h"
 
+#include <mutex>
+static mutex m;
+
 class Machine
 {
 public:
@@ -11,11 +14,11 @@ public:
 	Machine(Piece p, File<Piece>* axes, File<Piece>* jupes, File<Piece>* tetes);
 	~Machine();
 
-	File<Piece>* getObjetsTraites()	{	return fileObjetsTraites;	};;
-	File<Piece>* getAxes()			{	return fileAxes;	};
-	File<Piece>* getJupes()			{	return fileJupes;	};
-	File<Piece>* getTetes()			{	return fileTetes;	};
-	bool getArret() { return arret; };
+	File<Piece>* getObjetsTraites() const {	return fileObjetsTraites;	};;
+	File<Piece>* getAxes() const {	return fileAxes;	};
+	File<Piece>* getJupes() const {	return fileJupes;	};
+	File<Piece>* getTetes() const {	return fileTetes;	};
+	bool getArret() const { return arret; };
 
 	void traiter();
 	void arreter() { arret = true; };

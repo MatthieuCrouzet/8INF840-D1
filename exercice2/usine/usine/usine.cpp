@@ -8,11 +8,12 @@
 using namespace std;
 
 
+
 #pragma region VARIABLES_GLOBALES
 Machine* MA = new Machine(Piece::AXE);
 Machine* MJ = new Machine(Piece::JUPE);
 Machine* MT = new Machine(Piece::TETE);
-Machine* MP = new Machine(Piece::PISTON, MA->getAxes(), MJ->getJupes(), MT->getTetes());
+Machine* MP = new Machine(Piece::PISTON, MA->getObjetsTraites(), MJ->getObjetsTraites(), MT->getObjetsTraites());
 
 clock_t depart, fin;
 bool fini = false;
@@ -49,6 +50,7 @@ void threadMT() {
 
 void threadMain() {
 	while (!fini) {
+		m.lock();
 		switch (entier_alea(1, 3)) {
 		case 1:
 			MA->getAxes()->enfiler(Piece::AXE);
@@ -60,6 +62,7 @@ void threadMain() {
 			MT->getTetes()->enfiler(Piece::TETE);
 			break;
 		}
+		m.unlock();
 	}
 }
 
@@ -69,8 +72,8 @@ int main(void) {
 	thread T[5];
 	T[0] = thread(threadMA);
 	T[1] = thread(threadMJ);
-	T[2] = thread(threadMP);
 	T[3] = thread(threadMT);
+	T[2] = thread(threadMP);
 	T[4] = thread(threadMain);
 
 	for (int i = 0; i < 4; i++) {
@@ -85,7 +88,7 @@ int main(void) {
 
 	cout << "FIN" << endl;
 	double temps = (fin - depart) / CLOCKS_PER_SEC;
-	cout << setprecision(0) << "La production a durée " << temps << " minutes." << endl;
+	cout << setprecision(0) << "La production a durée " << temps*100 << " minutes." << endl;
 	system("PAUSE");
 
 	return 0;
