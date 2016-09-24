@@ -41,47 +41,75 @@ int entier_alea(int min, int max)
 
 void Machine::traiter()
 {
-	if (typePieceTraitee == Piece::PISTON) {
-		std::cout << fileObjetsTraites->taille() << " pistons créés ! " << endl;
-	}
-	
-	while ((typePieceTraitee==Piece::PISTON && fileObjetsTraites->estPleine()) || typePieceTraitee!=Piece::PISTON || !arret) {
+	while ((typePieceTraitee == Piece::PISTON && !fileObjetsTraites->estPleine()) && (typePieceTraitee != Piece::PISTON && !arret)) {
+
+		if (typePieceTraitee == Piece::PISTON) {
+			std::cout << " ---- " << fileObjetsTraites->estPleine() << endl;
+
+			std::cout << fileObjetsTraites->getTaille() << " pistons créés ! " << endl;
+		}
+
 		if (entier_alea(1, 4) > 1) {
-			m.lock();
+		
 			switch (typePieceTraitee) {
 			case Piece::AXE:
 				if (!fileAxes->estVide()) {
 					Sleep(25);
-					fileObjetsTraites->enfiler(fileAxes->defiler());
+					try
+					{
+						fileObjetsTraites->enfiler(fileAxes->defiler());
+					}
+					catch (const std::exception& e)
+					{
+						std::cout << e.what() << endl;
+					}
 				}
 				break;
 			case Piece::JUPE:
 				if (!fileJupes->estVide()) {
 					Sleep(30);
-					fileObjetsTraites->enfiler(fileJupes->defiler());
+					try
+					{
+						fileObjetsTraites->enfiler(fileJupes->defiler());
+					}
+					catch (const std::exception& e)
+					{
+						std::cout << e.what() << endl;
+					}
 				}
 				break;
 			case Piece::PISTON:
 				if (!fileAxes->estVide() && !fileJupes->estVide() && !fileTetes->estVide()) {
 					Sleep(10);
-					fileObjetsTraites->enfiler(fileAxes->defiler());
-					fileObjetsTraites->enfiler(fileJupes->defiler());
-					fileObjetsTraites->enfiler(fileTetes->defiler());
-					fileObjetsTraites->enfiler(Piece::PISTON);
+					try {
+						fileAxes->defiler();
+						fileJupes->defiler();
+						fileTetes->defiler();
+						fileObjetsTraites->enfiler(Piece::PISTON);
+					}
+					catch (const std::exception& e)
+					{
+						std::cout << e.what() << endl;
+					}
 				}
 				break;
 			case Piece::TETE:
 				if (!fileTetes->estVide()) {
 					Sleep(20);
-					fileObjetsTraites->enfiler(fileTetes->defiler());
+					try {
+						fileObjetsTraites->enfiler(fileTetes->defiler());
+					}
+					catch (const std::exception& e)
+					{
+						std::cout << e.what() << endl;
+					}
 				}
 				break;
 			}
-			m.unlock();
 		}
 		else {
-			int tmp = entier_alea(5,10);
-			switch (typePieceTraitee) {
+			int tmp = entier_alea(5, 10);
+			/*switch (typePieceTraitee) {
 			case Piece::AXE:
 				std::cout << "Machine pour les AXES en panne pendant " << tmp << " minutes ! " << endl;
 				break;
@@ -94,8 +122,8 @@ void Machine::traiter()
 			case Piece::TETE:
 				std::cout << "Machine pour les TETES en panne pendant " << tmp << " minutes ! " << endl;
 				break;
-			}
-			Sleep(tmp*10);			
+			}*/
+			Sleep(tmp * 10);
 		}
 	}
 	arret = false;

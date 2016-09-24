@@ -5,7 +5,7 @@
 #include "Piece.h"
 
 #include <mutex>
-static mutex m;
+
 
 class Machine
 {
@@ -14,7 +14,7 @@ public:
 	Machine(Piece p, File<Piece>* axes, File<Piece>* jupes, File<Piece>* tetes);
 	~Machine();
 
-	File<Piece>* getObjetsTraites() const {	return fileObjetsTraites;	};;
+	File<Piece>* getObjetsTraites() const {	return fileObjetsTraites;	};
 	File<Piece>* getAxes() const {	return fileAxes;	};
 	File<Piece>* getJupes() const {	return fileJupes;	};
 	File<Piece>* getTetes() const {	return fileTetes;	};

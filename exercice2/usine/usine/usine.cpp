@@ -50,8 +50,7 @@ void threadMT() {
 
 void threadMain() {
 	while (!fini) {
-		m.lock();
-		switch (entier_alea(1, 3)) {
+		switch (entier_alea(1, 1)) {
 		case 1:
 			MA->getAxes()->enfiler(Piece::AXE);
 			break;
@@ -62,7 +61,6 @@ void threadMain() {
 			MT->getTetes()->enfiler(Piece::TETE);
 			break;
 		}
-		m.unlock();
 	}
 }
 
@@ -71,18 +69,18 @@ int main(void) {
 	depart = clock();
 	thread T[5];
 	T[0] = thread(threadMA);
-	T[1] = thread(threadMJ);
-	T[3] = thread(threadMT);
-	T[2] = thread(threadMP);
+	//T[1] = thread(threadMJ);
+	//T[3] = thread(threadMT);
+	//T[2] = thread(threadMP);
 	T[4] = thread(threadMain);
 
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 5; i++) {
 		if (T[i].joinable())
 		{
 			T[i].join();
 		}
 	}
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 5; i++) {
 		T[i].~thread();
 	}
 
