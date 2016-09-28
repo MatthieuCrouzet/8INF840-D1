@@ -24,6 +24,12 @@
     <ClInclude Include="Machine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Machine1P.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Machine3P.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="File.cpp">
@@ -33,6 +39,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Machine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Machine1P.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Machine3P.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

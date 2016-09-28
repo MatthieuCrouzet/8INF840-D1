@@ -3,17 +3,18 @@
 #include <thread>
 #include <iomanip>
 
-#include "Machine.h"
+#include "Machine1P.h"
+#include "Machine3P.h"
 
 using namespace std;
 
 
 
 #pragma region VARIABLES_GLOBALES
-Machine* MA = new Machine(Piece::AXE);
-Machine* MJ = new Machine(Piece::JUPE);
-Machine* MT = new Machine(Piece::TETE);
-Machine* MP = new Machine(Piece::PISTON, MA->getObjetsTraites(), MJ->getObjetsTraites(), MT->getObjetsTraites());
+Machine1P* MA = new Machine1P();
+Machine1P* MJ = new Machine1P();
+Machine1P* MT = new Machine1P();
+Machine3P* MP = new Machine3P(MA->getFileSortie(), MJ->getFileSortie(), MT->getFileSortie());
 
 clock_t depart, fin;
 bool fini = false;
@@ -22,12 +23,17 @@ bool fini = false;
 #pragma region THREADS_MACHINES
 void threadMA() {
 	MA->traiter();
-	MA->~Machine();
+	MA->~Machine1P();
 }
 
 void threadMJ() {
 	MJ->traiter();
-	MJ->~Machine();
+	MJ->~Machine1P();
+}
+
+void threadMT() {
+	MT->traiter();
+	MT->~Machine1P();
 }
 
 void threadMP() {
@@ -37,29 +43,34 @@ void threadMP() {
 	MJ->arreter();
 	MT->arreter();
 	fini = true;
-	MP->~Machine();
+	MP->~Machine3P();
 }
 
-void threadMT() {
-	MT->traiter();
-	MT->~Machine();
-}
+
 #pragma endregion THREADS_MACHINES
 
 
 
 void threadMain() {
 	while (!fini) {
-		switch (entier_alea(1, 1)) {
-		case 1:
-			MA->getAxes()->enfiler(Piece::AXE);
-			break;
-		case 2:
-			MJ->getJupes()->enfiler(Piece::JUPE);
-			break;
-		case 3:
-			MT->getTetes()->enfiler(Piece::TETE);
-			break;
+
+		try
+		{
+			switch (entier_alea(1, 3)) {
+			case 1:
+				MA->getFileEntree()->enfiler(Piece::AXE);
+				break;
+			case 2:
+				MJ->getFileEntree()->enfiler(Piece::JUPE);
+				break;
+			case 3:
+				MT->getFileEntree()->enfiler(Piece::TETE);
+				break;
+			}
+		}
+		catch (const std::exception& e)
+		{
+			cout << "thread main pile pleine" << endl;
 		}
 	}
 }
@@ -69,9 +80,9 @@ int main(void) {
 	depart = clock();
 	thread T[5];
 	T[0] = thread(threadMA);
-	//T[1] = thread(threadMJ);
-	//T[3] = thread(threadMT);
-	//T[2] = thread(threadMP);
+	T[1] = thread(threadMJ);
+	T[3] = thread(threadMT);
+	T[2] = thread(threadMP);
 	T[4] = thread(threadMain);
 
 	for (int i = 0; i < 5; i++) {
@@ -86,7 +97,7 @@ int main(void) {
 
 	cout << "FIN" << endl;
 	double temps = (fin - depart) / CLOCKS_PER_SEC;
-	cout << setprecision(0) << "La production a durée " << temps*100 << " minutes." << endl;
+	cout << setprecision(0) << "La production a durée " << temps << " millisecondes." << endl;
 	system("PAUSE");
 
 	return 0;

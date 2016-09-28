@@ -3,33 +3,26 @@
 
 #include "File.h"
 #include "Piece.h"
+#include <Windows.h>
 
 #include <mutex>
-
+static mutex m;
 
 class Machine
 {
 public:
-	Machine(Piece p);
-	Machine(Piece p, File<Piece>* axes, File<Piece>* jupes, File<Piece>* tetes);
+	Machine();
 	~Machine();
 
-	File<Piece>* getObjetsTraites() const {	return fileObjetsTraites;	};
-	File<Piece>* getAxes() const {	return fileAxes;	};
-	File<Piece>* getJupes() const {	return fileJupes;	};
-	File<Piece>* getTetes() const {	return fileTetes;	};
+	File<Piece>* getFileSortie() const { return fileSortie; };
 	bool getArret() const { return arret; };
 
-	void traiter();
+	virtual void traiter();
 	void arreter() { arret = true; };
 
 private:
-	File<Piece>* fileObjetsTraites;
-	File<Piece>* fileAxes;
-	File<Piece>* fileJupes;
-	File<Piece>* fileTetes;
+	File<Piece>* fileSortie;
 	bool arret;
-	Piece typePieceTraitee;
 };
 
 int entier_alea(int min, int max);
