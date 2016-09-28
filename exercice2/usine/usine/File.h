@@ -17,8 +17,8 @@ public: // constructeurs et destructeurs:
 	int taille() const { return vec.size(); };
 	bool estVide() const { return vec.empty(); };
 	bool estPleine() const { return taille() >= taille_max; };
-	const T& premier() const { return vec[vec.begin()]; }; //  tête de la file  
-	const T& dernier() const { return vec[vec.end()]; };; // queue de la file  
+	const T& premier() const { return vec.front(); }; //  tête de la file  
+	const T& dernier() const { return vec.end(); }; // queue de la file  
 	// surcharges d'opérateurs  
 	const File<T>& operator = (const File<T>& f);  
 	//UNUSED
@@ -44,7 +44,7 @@ File<T>::File(const File & f) :
 	taille_max(f.taille_max)
 {
 	m.lock();
-	for (vector<T>::iterator i = = f.vec.begin(); i < f.vec.end(); i++) {
+	for (vector<T>::iterator i =f.vec.begin(); i < f.vec.end(); i++) {
 		vec.push_back(*i);
 	}
 	m.unlock();

@@ -2,7 +2,7 @@
 
 
 
-Machine1P::Machine1P()
+Machine1P::Machine1P(Piece p):Machine(p)
 {
 	fileEntree = new File<Piece>();
 }
@@ -17,6 +17,7 @@ void Machine1P::traiter()
 {
 	Piece courante;
 	while (!getArret()) {
+		panne();
 		if (!fileEntree->estVide()) {
 			try
 			{

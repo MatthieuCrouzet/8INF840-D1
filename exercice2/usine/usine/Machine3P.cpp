@@ -2,7 +2,7 @@
 
 
 
-Machine3P::Machine3P(File<Piece>* axes, File<Piece>* jupes, File<Piece>* tetes):
+Machine3P::Machine3P(Piece p, File<Piece>* axes, File<Piece>* jupes, File<Piece>* tetes) : Machine(p),
 	fileAxe(axes),
 	fileJupe(jupes),
 	fileTete(tetes)
@@ -20,6 +20,7 @@ Machine3P::~Machine3P()
 void Machine3P::traiter()
 {
 	while (!getFileSortie()->estPleine()) {
+		panne();
 		//Si toutes les files ont au moins un element
 		if (!(fileAxe->estVide() || fileJupe->estVide() || fileTete->estVide())) {
 			try
@@ -31,7 +32,7 @@ void Machine3P::traiter()
 				getFileSortie()->enfiler(Piece::PISTON);
 				cout << "\nCreation d'un piston : " << getFileSortie()->taille() << endl;
 				cout << "Apres creation : Axes : " << fileAxe->taille() << " -- Jupes : " << fileJupe->taille() << " -- Tetes : " << fileTete->taille() << endl;
-				
+
 			}
 			catch (const std::exception& e)
 			{

@@ -7,7 +7,7 @@ class Machine1P :
 	public Machine
 {
 public:
-	Machine1P();
+	Machine1P(Piece p);
 	~Machine1P();
 	virtual void traiter();
 	File<Piece>* getFileEntree() { return fileEntree; }

@@ -11,10 +11,10 @@ using namespace std;
 
 
 #pragma region VARIABLES_GLOBALES
-Machine1P* MA = new Machine1P();
-Machine1P* MJ = new Machine1P();
-Machine1P* MT = new Machine1P();
-Machine3P* MP = new Machine3P(MA->getFileSortie(), MJ->getFileSortie(), MT->getFileSortie());
+Machine1P* MA = new Machine1P(Piece::AXE);
+Machine1P* MJ = new Machine1P(Piece::JUPE);
+Machine1P* MT = new Machine1P(Piece::TETE);
+Machine3P* MP = new Machine3P(Piece::PISTON,MA->getFileSortie(), MJ->getFileSortie(), MT->getFileSortie());
 
 clock_t depart, fin;
 bool fini = false;
@@ -68,7 +68,7 @@ void threadMain() {
 				break;
 			}
 		}
-		catch (const std::exception& e)
+		catch (const std::exception&)
 		{
 		}
 	}
@@ -96,7 +96,7 @@ int main(void) {
 
 	cout << "FIN" << endl;
 	double temps = (fin - depart) / CLOCKS_PER_SEC;
-	cout << setprecision(0) << "La production a durée " << temps << " millisecondes." << endl;
+	cout << setprecision(0) << "La production a dure : " << ((int)(temps * 100)) / 60 << " heures " << ((int)(temps*100))%60 << " minutes." << endl;
 	system("PAUSE");
 
 	return 0;

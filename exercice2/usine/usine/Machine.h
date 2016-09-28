@@ -5,13 +5,13 @@
 #include "Piece.h"
 #include <Windows.h>
 
-#include <mutex>
-static mutex m;
+
+int entier_alea(int min, int max);
 
 class Machine
 {
 public:
-	Machine();
+	Machine(Piece p);
 	~Machine();
 
 	File<Piece>* getFileSortie() const { return fileSortie; };
@@ -20,11 +20,17 @@ public:
 	virtual void traiter();
 	void arreter() { arret = true; };
 
+	//jusqu'à 25% ou 25% de chances de tomber en panne ?
+	//void panne() { if (entier_alea(1, 4)>3) Sleep(entier_alea(50, 100)); };
+	void panne();
+
 private:
 	File<Piece>* fileSortie;
 	bool arret;
+	Piece production;
 };
 
-int entier_alea(int min, int max);
+
+
 
 #endif

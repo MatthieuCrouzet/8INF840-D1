@@ -7,7 +7,7 @@ class Machine3P:
 	public Machine
 {
 public:
-	Machine3P(File<Piece>* axes, File<Piece>* jupes, File<Piece>* tetes);
+	Machine3P(Piece p,File<Piece>* axes, File<Piece>* jupes, File<Piece>* tetes);
 	~Machine3P();
 	virtual void traiter();
 private:
