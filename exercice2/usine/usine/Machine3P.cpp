@@ -12,9 +12,9 @@ Machine3P::Machine3P(File<Piece>* axes, File<Piece>* jupes, File<Piece>* tetes):
 
 Machine3P::~Machine3P()
 {
-	delete fileAxe;
-	delete fileJupe;
-	delete fileTete;
+	//delete fileAxe;
+	//delete fileJupe;
+	//delete fileTete;
 }
 
 void Machine3P::traiter()
@@ -29,6 +29,9 @@ void Machine3P::traiter()
 				fileTete->defiler();
 				Sleep(10);
 				getFileSortie()->enfiler(Piece::PISTON);
+				cout << "\nCreation d'un piston : " << getFileSortie()->taille() << endl;
+				cout << "Apres creation : Axes : " << fileAxe->taille() << " -- Jupes : " << fileJupe->taille() << " -- Tetes : " << fileTete->taille() << endl;
+				
 			}
 			catch (const std::exception& e)
 			{

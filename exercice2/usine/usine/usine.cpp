@@ -70,13 +70,12 @@ void threadMain() {
 		}
 		catch (const std::exception& e)
 		{
-			cout << "thread main pile pleine" << endl;
 		}
 	}
 }
 
 int main(void) {
-	srand(time(NULL));
+	srand(time_t(NULL));
 	depart = clock();
 	thread T[5];
 	T[0] = thread(threadMA);

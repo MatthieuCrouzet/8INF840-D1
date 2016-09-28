@@ -10,17 +10,13 @@ public: // constructeurs et destructeurs:
 	File(int max = 100) ;    
 	File(const File & f);   
 	// modificateurs  
-	void enfiler(const T& elt) throw ();
-	T defiler() throw ();
+	void enfiler(const T& elt);
+	T defiler();
 	
 	// sélecteurs     
 	int taille() const { return vec.size(); };
 	bool estVide() const { return vec.empty(); };
-	bool estPleine() const { 
-		//std::cout << taille() << " " << taille_max << endl;
-		//std::cout << taille() << " " << taille_max << endl;
-		//std::cout << taille() << " " << taille_max << endl;
-		return taille() >= taille_max; };
+	bool estPleine() const { return taille() >= taille_max; };
 	const T& premier() const { return vec[vec.begin()]; }; //  tête de la file  
 	const T& dernier() const { return vec[vec.end()]; };; // queue de la file  
 	// surcharges d'opérateurs  
@@ -48,8 +44,8 @@ File<T>::File(const File & f) :
 	taille_max(f.taille_max)
 {
 	m.lock();
-	for (int i = f.vec.begin(); i < f.vec.end(); i++) {
-		vec.push_back(f.vec[i]);
+	for (vector<T>::iterator i = = f.vec.begin(); i < f.vec.end(); i++) {
+		vec.push_back(*i);
 	}
 	m.unlock();
 }
@@ -60,15 +56,15 @@ const File<T>& File<T>::operator=(const File<T>& f)
 	vec(0);
 	taille_max(f.taille_max);
 	m.lock();
-	for (int i = f.vec.begin(); i < f.vec.end(); i++) {
-		vec.push_back(f.vec[i]);
+	for (vector<T>::iterator i = f.vec.begin(); i < f.vec.end(); i++) {
+		vec.push_back(*i);
 	}
 	m.unlock();
 	return (*this);
 }
 
 template<typename T>
-void File<T>::enfiler(const T& elt) throw (){
+void File<T>::enfiler(const T& elt) {
 	m.lock();
 	if (!estPleine()) {
 		vec.push_back(elt);
@@ -76,24 +72,22 @@ void File<T>::enfiler(const T& elt) throw (){
 	}
 	else {
 		m.unlock();
-		cout << "throw pile pleine : " << endl;
-		throw new length_error("Pile pleine");
+		throw length_error("Pile pleine");
 	}
 };
 
 
 template<typename T>
-T File<T>::defiler() throw () {
+T File<T>::defiler() {
 	m.lock();
 	if (!estVide()) {
 		T elt = vec.front();
-		vec.erase(vec.begin(), vec.begin() + 1);
+		vec.erase(vec.begin());
 		m.unlock();
 		return elt;
 	}
 	else {
 		m.unlock();
-		cout << "throw pile vide" << endl;
 		throw length_error("pile vide");
 	}
 };
